@@ -46,11 +46,11 @@
 
     <div class="mt-2">
         {% if user.subscriptionType != "premium" %}
-            <a href="{{ path('onboarding_step', {'step': 2}) }}" class="btn btn-secondary">Retour</a>
+            <a href="{{ path('onboarding_step', {'step': 2}) }}" class="btn btn-secondary">Back</a>
         {% else %}
-            <a href="{{ path('onboarding_step', {'step': 3}) }}" class="btn btn-secondary">Retour</a>
+            <a href="{{ path('onboarding_step', {'step': 3}) }}" class="btn btn-secondary">Back</a>
         {% endif %}
 
-        <a href="{{ path('onboarding_submit') }}" class="btn btn-success">Soumettre</a>
+        <a href="{{ path('onboarding_submit') }}" class="btn btn-success">Submit</a>
     </div>
 {% endblock %}

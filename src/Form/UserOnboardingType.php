@@ -26,7 +26,7 @@ class UserOnboardingType extends AbstractType
         $builder
             ->add('name', TextType::class, [
                 'constraints' => [
-                    new Assert\NotBlank(['message' => 'Le nom ne peut pas être vide.']),
+                    new Assert\NotBlank(['message' => 'The name cannot be empty.']),
                     new Assert\Length([
                         'min' => 2,
                         'minMessage' => 'Le nom doit comporter au moins {{ limit }} caractères.',
@@ -43,12 +43,12 @@ class UserOnboardingType extends AbstractType
                     new Assert\Length([
                         'min' => 10,
                         'max' => 15,
-                        'minMessage' => 'Le numéro de téléphone doit contenir au moins {{ limit }} caractères.',
-                        'maxMessage' => 'Le numéro de téléphone ne doit pas dépasser {{ limit }} caractères.'
+                        'minMessage' => 'The phone number must contain at least {{ limit }} characters.',
+                        'maxMessage' => 'The phone number must not exceed {{ limit }} characters.'
                     ]),
                     new Assert\Regex([
                         'pattern' => '/^\+?[0-9]{10,15}$/',
-                        'message' => 'Veuillez entrer un numéro de téléphone valide (par exemple +33123456789).'
+                        'message' => 'Please enter a valid phone number (e.g., +33123456789).'
                     ])
                 ]
             ])
@@ -59,7 +59,7 @@ class UserOnboardingType extends AbstractType
                     'Premium' => 'premium',
                 ],
                 'constraints' => [
-                    new Assert\NotBlank(['message' => 'Le type d\'abonnement ne peut pas être vide.']),
+                    new Assert\NotBlank(['message' => 'The subscription type cannot be empty.']),
                 ]
             ]);
     }
@@ -78,7 +78,7 @@ class UserOnboardingType extends AbstractType
 
         if ($existingUser) {
             // Si l'email existe déjà, ajouter une violation
-            $context->buildViolation('L\'email {{ value }} est déjà utilisé.')
+            $context->buildViolation('The email {{ value }} is already in use.')
                 ->setParameter('{{ value }}', $value)
                 ->addViolation();
         }

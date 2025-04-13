@@ -15,7 +15,7 @@ class AddressType extends AbstractType
         $builder
             ->add('country', CountryType::class, [
                 'label' => 'Pays',
-                'placeholder' => 'Choisir un pays',
+                'placeholder' => 'Choose a country',
                 'preferred_choices' => ['FR', 'US'],
             ])
             ->add('addressLine1')
