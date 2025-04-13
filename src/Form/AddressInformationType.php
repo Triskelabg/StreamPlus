@@ -11,7 +11,7 @@ class AddressInformationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder->add('address', AddressType::class); // ✅ ici on insère le sous-formulaire
+        $builder->add('address', AddressType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\ValueObject\Address;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -12,12 +13,16 @@ class AddressType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            ->add('country', CountryType::class, [
+                'label' => 'Pays',
+                'placeholder' => 'Choisir un pays',
+                'preferred_choices' => ['FR', 'US'],
+            ])
             ->add('addressLine1')
             ->add('addressLine2')
             ->add('city')
             ->add('postalCode')
-            ->add('state')
-            ->add('country');
+            ->add('state');
     }
 
     public function configureOptions(OptionsResolver $resolver): void
