@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\UserOnboarding;
 use App\Service\OnboardingFlowManager;
 use App\Service\OnboardingSessionStorage;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -50,5 +52,26 @@ final class OnboardingController extends AbstractController
             'form' => $form,
             'step' => $step,
         ]);
+    }
+
+    #[Route('/onboarding/submit', name: 'onboarding_submit')]
+    public function submit(
+        SessionInterface $session,
+        EntityManagerInterface $em,
+        OnboardingSessionStorage $storage
+    ): Response {
+        $user = $storage->get($session);
+        if (!$user instanceof UserOnboarding) {
+            return $this->redirectToRoute('onboarding_step', ['step' => 1]);
+        }
+        if($user->getName()){
+            $em->persist($user);
+            $em->flush();
+            $storage->clear($session);
+
+            $this->addFlash("success", 'votre subscription a bien ete prise en compte');
+            return $this->render('onboarding/success.html.twig');
+        }
+        return $this->render('onboarding/success.html.twig');
     }
 }
