@@ -1,11 +1,54 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Etape {{ step }}{% endblock %}
+{% block title %}Hello OnboardingController!{% endblock %}
 
 {% block body %}
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-        <button class="btn btn-primary">Suivant</button>
-    {{ form_end(form) }}
+    <div>
+        {% set v = 0 %}
+        {% if step  == 2 %}
+            {% set v = 30 %}
+        {% elseif step  == 3 %}
+            {% set v = 60 %}
+        {% elseif step == 4%}
+            {% set v = 100 %}
+        {% endif %}
 
+        <div class="progress mt-4">
+            <div class="progress-bar" role="progressbar" style="width: {{ v }}%" aria-valuenow="{{ v }}" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+
+    </div>
+    <div class="d-flex justify-content-center align-items-center " style="height: 100vh;">
+        <div class="d-flex w-100 shadow" style="height: 80vh;">
+
+            <!-- Colonne gauche avec l’image -->
+            <div class="col-6">
+                <img src="{{ asset('images/step1.png') }}" alt="Inscription" class="h-100 w-100 object-fit-cover rounded-start">
+            </div>
+
+            <div class="w-50 bg-white p-4 rounded-end shadow d-flex justify-content-center ">
+                <div class="w-75 h-100 d-flex flex-column justify-content-center">
+                    {{ form_start(form) }}
+                    <h2>Étape {{ step }}</h2>
+                    {# Affichage de toutes les erreurs du formulaire #}
+                    {% if form.vars.errors|length > 0 %}
+                        <div class="alert alert-danger">
+                            {% for error in form.vars.errors %}
+                                <p>{{ error.message }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+                    {{ form_widget(form) }}
+                    {% if step > 1 %}
+                        <a href="{{ path('onboarding_step', {'step': step - 1}) }}" class="btn btn-secondary">Retour</a>
+                    {% endif %}
+                    <button class="btn btn-primary">Suivant</button>
+
+                    {{ form_end(form) }}
+
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
